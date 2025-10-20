@@ -1,24 +1,28 @@
-import React from 'react';
+import React from "react";
 
-export default function BotCard({ bot, onEnlist, onDischarge, showDelete }) {
+const BotCard = ({ bot, onClick, onDischarge, showDischarge }) => {
   return (
-    <div className="bot-card" onClick={() => onEnlist(bot)}>
-      {showDelete && (
-        <button
-          className="delete-btn"
-          onClick={(e) => {
-            e.stopPropagation(); // prevent enlist when clicking delete
-            onDischarge(bot.id);
-          }}
-          aria-label={`Discharge ${bot.name}`}
-        >
-          ×
+    <div className="bot-card" onClick={onClick}>
+      <img src={bot.avatar_url} alt={bot.name} />
+      <h3>{bot.name}</h3>
+      <p>{bot.catchphrase}</p>
+      <p>Class: {bot.bot_class}</p>
+      <div className="bot-stats">
+        <span>❤️ {bot.health}</span>
+        <span>⚔️ {bot.damage}</span>
+        <span>🛡️ {bot.armor}</span>
+      </div>
+      {showDischarge && (
+        <button className="discharge-btn" onClick={(e) => {
+          e.stopPropagation();
+          onDischarge(bot);
+        }}>
+          ❌ Discharge
         </button>
       )}
-      <img src={bot.avatar_url} alt={bot.name} />
-      <div className="bot-meta"><strong>{bot.name}</strong></div>
-      <div className="bot-meta">{bot.bot_class}</div>
-      <div className="bot-meta small">❤️ {bot.health} &nbsp; 🔥 {bot.damage} &nbsp; 🛡️ {bot.armor}</div>
     </div>
   );
-}
+};
+
+export default BotCard;
+
