@@ -46,3 +46,8 @@
   border-radius: 4px;
   cursor: pointer;
 }
+
+.sort-bar {
+  margin: 2rem 0;
+  text-align: center;
+}
