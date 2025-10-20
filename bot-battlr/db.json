@@ -1,0 +1,34 @@
+{
+  "bots": [
+    {
+      "id": 101,
+      "name": "wHz-93",
+      "health": 94,
+      "damage": 20,
+      "armor": 63,
+      "bot_class": "Support",
+      "catchphrase": "1010010101001101100011000111101",
+      "avatar_url": "https://robohash.org/wHz-93.png?size=300x300"
+    },
+    {
+      "id": 102,
+      "name": "RyM-66",
+      "health": 86,
+      "damage": 36,
+      "armor": 77,
+      "bot_class": "Medic",
+      "catchphrase": "0110011100001000111101001100011001",
+      "avatar_url": "https://robohash.org/RyM-66.png?size=300x300"
+    },
+    {
+      "id": 103,
+      "name": "X-Alpha",
+      "health": 75,
+      "damage": 45,
+      "armor": 40,
+      "bot_class": "Assault",
+      "catchphrase": "For glory!",
+      "avatar_url": "https://robohash.org/X-Alpha.png?size=300x300"
+    }
+  ]
+}
