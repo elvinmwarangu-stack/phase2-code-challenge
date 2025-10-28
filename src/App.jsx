@@ -1,35 +1,96 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useEffect, useState } from "react";
+import BotCollection from "./components/BotCollection";
+import YourBotArmy from "./components/YourBotArmy";
+import BotSpecs from "./components/BotSpecs";
+import SortBar from "./components/SortBar";
+import "./App.css";
+// import "./components/BotSpecs.css";
+// import "./components/SortBar.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [bots, setBots] = useState([]);
+  const [army, setArmy] = useState([]);
+  const [selectedBot, setSelectedBot] = useState(null);
+  const [sortBy, setSortBy] = useState(null);
+  const [filterClasses, setFilterClasses] = useState([]);
+
+  useEffect(() => {
+    fetch("https://json-server-vercel-tan-three.vercel.app/bots")
+      .then((res) => res.json())
+      .then((data) => setBots(data))
+      .catch((err) => console.error("Failed to load bots:", err));
+  }, []);
+
+  const enlistBot = (bot) => {
+    const sameClass = army.find((b) => b.bot_class === bot.bot_class);
+    const alreadyEnlisted = army.find((b) => b.id === bot.id);
+
+    if (!alreadyEnlisted && !sameClass) {
+      setArmy((prev) => [...prev, bot]);
+    }
+  };
+
+  const releaseBot = (botOrId) => {
+    const id = typeof botOrId === "object" ? botOrId.id : botOrId;
+    setArmy((prev) => prev.filter((b) => b.id !== id));
+  };
+
+  const dischargeBot = (botOrId) => {
+    const id = typeof botOrId === "object" ? botOrId.id : botOrId;
+    fetch(`https://json-server-vercel-tan-three.vercel.app/bots${id}`, { method: "DELETE" })
+      .then((res) => {
+        if (!res.ok) throw new Error("Delete failed");
+        setArmy((prev) => prev.filter((b) => b.id !== id));
+        setBots((prev) => prev.filter((b) => b.id !== id));
+        if (selectedBot && selectedBot.id === id) setSelectedBot(null);
+      })
+      .catch((err) => console.error("Failed to discharge bot:", err));
+  };
+
+  const filteredBots = bots
+    .filter((bot) => filterClasses.length === 0 || filterClasses.includes(bot.bot_class))
+    .sort((a, b) => {
+      if (!sortBy) return 0;
+      return b[sortBy] - a[sortBy];
+    });
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="App">
+      <h1>Bot Battlr</h1>
+
+      <YourBotArmy
+        bots={army}
+        onRelease={releaseBot}
+        onDischarge={dischargeBot}
+      />
+
+      {selectedBot ? (
+        <BotSpecs
+          bot={selectedBot}
+          onBack={() => setSelectedBot(null)}
+          onEnlist={(bot) => {
+            enlistBot(bot);
+            setSelectedBot(null);
+          }}
+        />
+      ) : (
+        <>
+          <SortBar
+            sortBy={sortBy}
+            setSortBy={setSortBy}
+            filterClasses={filterClasses}
+            setFilterClasses={setFilterClasses}
+          />
+          <BotCollection
+            bots={filteredBots}
+            onEnlist={enlistBot}
+            onDischarge={dischargeBot}
+            onSelectBot={(bot) => setSelectedBot(bot)}
+          />
+        </>
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;
