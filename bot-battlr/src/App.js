@@ -4,8 +4,8 @@ import YourBotArmy from "./components/YourBotArmy";
 import BotSpecs from "./components/BotSpecs";
 import SortBar from "./components/SortBar";
 import "./App.css";
-import "./components/BotSpecs.css";
-import "./components/SortBar.css";
+// import "./components/BotSpecs.css";
+// import "./components/SortBar.css";
 
 function App() {
   const [bots, setBots] = useState([]);
