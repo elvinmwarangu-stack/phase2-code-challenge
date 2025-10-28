@@ -15,7 +15,7 @@ function App() {
   const [filterClasses, setFilterClasses] = useState([]);
 
   useEffect(() => {
-    fetch("https://phase2-code-challenge-iydy.vercel.app/bots")
+    fetch("https://phase2-code-challenge-sfa3.vercel.app/bots")
       .then((res) => res.json())
       .then((data) => setBots(data))
       .catch((err) => console.error("Failed to load bots:", err));
@@ -37,7 +37,7 @@ function App() {
 
   const dischargeBot = (botOrId) => {
     const id = typeof botOrId === "object" ? botOrId.id : botOrId;
-    fetch(`https://phase2-code-challenge-iydy.vercel.app/bots/${id}`, { method: "DELETE" })
+    fetch(`https://phase2-code-challenge-sfa3.vercel.app/bots/${id}`, { method: "DELETE" })
       .then((res) => {
         if (!res.ok) throw new Error("Delete failed");
         setArmy((prev) => prev.filter((b) => b.id !== id));
