@@ -1,40 +1,16 @@
-# phase2-code-challenge
-# 🤖 Bot Battlr
+# React + Vite
 
-**Bot Battlr** is a fun and interactive React application that allows users to build and manage their own bot army. Browse available bots, view detailed specs, sort and filter them, enlist your favorite ones, and even discharge bots from service — forever.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
----
+Currently, two official plugins are available:
 
-## 📸 Demo
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-> *(Insert screenshots or a GIF if you have them)*
+## React Compiler
 
----
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## 🚀 Features
+## Expanding the ESLint configuration
 
-### ✅ Core Features
-
-- View a list of all available bots
-- Click on a bot to view detailed specs
-- Enlist bots into your personal army
-- Bots can only be enlisted **once**
-- Release a bot from your army
-- Discharge (delete) a bot forever from the app
-
-### 🌟 Advanced Features
-
-- View detailed bot specs in a separate screen
-- Sort bots by health, damage, or armor
-- Filter bots by their class (Support, Medic, etc.)
-- Only one bot per class can be enlisted into your army
-
----
-
-## 🛠️ Setup Instructions
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/your-username/bot-battlr.git
-cd bot-battlr
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
